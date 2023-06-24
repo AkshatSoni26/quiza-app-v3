@@ -10,6 +10,9 @@
   width: auto;
 }
 
+.option :hover {
+  background-color: rgb(0, 0, 0);
+}
 .header {
   margin-top: 5%;
 }
@@ -32,4 +35,24 @@
 
 .ShowSolution {
   align-content: center;
+}
+
+
+footer {
+  /* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: right;
+}
+
+.Quiz {
+  overflow-y: scroll;
+  position: relative;
+}
+
+.text-success, .text-danger {
+  font-size: 1.5rem;
 }
