@@ -1,30 +1,39 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Helper } from '../../Helper/Helper'
 import QuestionPortion from '../QuestionPortion/QuestionPortion'
 
 const MCOptions = ({ index, Alpoption, option, btnDisable, optionChooseFun }) => {
 
-    const { QuestionBank,optionChoosen, setOptionChoosen, CurrQuestion } = useContext(Helper)
+    const { QuestionBank, optionChoosen, setOptionChoosen, CurrQuestion, correctOptionId } = useContext(Helper)
 
-    function MCoptionChooseFun(x) {
-        console.log('McOPtionChoosen', x)
+    const [multiple, setMultiple ] = useState([])
 
-        optionChoosen[index] = x    
-        console.log("optionChoosen", optionChoosen)             // Options choose Array =[[], [], [], []]
-
-        console.log("QuestionBank", QuestionBank)
+    function multipleFun(i,index) {
+        if (!multiple?.includes(i)){
+        const updatedOptions = [...multiple];
+        updatedOptions[index] = i
+        setMultiple(updatedOptions)
+        console.log('under if condition',correctOptionId)
+                console.log('i',i) 
+            }
+        else {
+            const updataeOPtions = [...multiple]
+            console.log('updataeOPtions',updataeOPtions)
+            updataeOPtions[index] = undefined
+            setMultiple(updataeOPtions)
+            console.log('under else condition',correctOptionId)
+        }
+         
     }
 
 
     return (
         <button
-
-            onClick={() => MCoptionChooseFun([Alpoption[index], option.option_id])}
-
-            className={`btn ${((optionChoosen[1] == option.option_id)) ? "btn-primary" : "btn-outline-primary"} option`}
+            // onClick={() => MCoptionChooseFun([Alpoption[index], option.option_id] , index)}
+            onClick={() => multipleFun(option.option_id,index)}
+            className={`btn ${( multiple[index] == (option.option_id) )? "btn-primary" : "btn-outline-primary"} option`}
             dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
             disabled={btnDisable}
-
         />
     )
 }

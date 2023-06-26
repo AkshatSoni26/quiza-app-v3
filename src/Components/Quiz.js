@@ -78,11 +78,17 @@ export default function Quiz() {
             (QusetionBank[CurrQuestion].options).map(
                 (option, index) => {
                     if (option.is_solution == true) {
+                        // setcorrectOptionId([Alpoption[index], option.option_id])
+                        // console.log('correctOptionId under useEffect', [Alpoption[index], option.option_id])
 
-                        
-                        setcorrectOptionId([Alpoption[index], option.option_id])
-                        console.log('correctOptionId under useEffect', [Alpoption[index], option.option_id])
+                        const updatedAnswers = [...correctOptionId, option.option_id]
+                        // updatedAnswers[index] = [Alpoption[index], option.option_id]
+                        setcorrectOptionId(updatedAnswers)
+
+                        console.log("updatedAnswers", updatedAnswers)
+
                     }
+                    
                 }
             )
         }, [CurrQuestion]
@@ -103,7 +109,7 @@ export default function Quiz() {
             setbtnDisable(true)  // disabling the buttons
             setMessage(true)
 
-            if (correctOptionId[1] == optionChoosen[1]) {
+            if (correctOptionId.includes(optionChoosen)) {
                 setScore(score + 1)
                 setOptionIsRight(true)
 

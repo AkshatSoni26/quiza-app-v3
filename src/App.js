@@ -8,7 +8,7 @@ import { Helper } from './Helper/Helper';
 // import Helper from './Helper/Helper';
 
 
-export const Api = "https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=42"
+export const Api = "https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=46"
 
 
 function App() {
