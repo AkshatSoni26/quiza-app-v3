@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Helper } from '../../Helper/Helper'
+import '../../App.css'
 
 export default function Header({headerButRedirect}) {
     const { QusetionBank,CurrQuestion } = useContext(Helper)

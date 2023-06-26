@@ -57,3 +57,16 @@ footer {
 .text-success, .text-danger {
   font-size: 1.5rem;
 }
+
+h4 {
+  color: rgb(80, 58, 58);
+  font-size: large;
+}
+/* 
+.header {
+  box-shadow: 0 0 10px 0;
+  flex-shrink: 0;
+  padding: 10px 10px 0;
+  z-index: 9;
+
+} */

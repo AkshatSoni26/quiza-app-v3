@@ -4,6 +4,9 @@ import '../App.css'
 import { Form } from "react-bootstrap";
 import Header from './Header/Header';
 import NextAndPRev from './NextAndPrev/NextAndPRev';
+import Options from './Options/Options';
+import QuestionPortion from './QuestionPortion/QuestionPortion';
+import ChooseOptionIsNotRight from './SubmitPorttion/ChooseOptionIsNotRight';
 // import SubmitButton from './SubmitButton/SubmitButton';
 
 
@@ -75,6 +78,8 @@ export default function Quiz() {
             (QusetionBank[CurrQuestion].options).map(
                 (option, index) => {
                     if (option.is_solution == true) {
+
+                        
                         setcorrectOptionId([Alpoption[index], option.option_id])
                         console.log('correctOptionId under useEffect', [Alpoption[index], option.option_id])
                     }
@@ -142,6 +147,8 @@ export default function Quiz() {
 
             setcorrectOptionId([])
             setOptionChoosen([])
+            setAfterWrongAnswerShow(false)
+
 
             const answer = document.getElementById('showingSolution')
             answer.innerHTML = ''
@@ -156,6 +163,7 @@ export default function Quiz() {
             setSubmitisClick(false)
             setcorrectOptionId([])
             setOptionChoosen([])
+            setAfterWrongAnswerShow(false)
 
 
             const answer = document.getElementById('showingSolution')
@@ -180,10 +188,10 @@ export default function Quiz() {
         setbtnDisable(false)
         setMessage(false)
 
-
         setOptionChoosen([])
         setSubmitisClick(false)
 
+        setshowSolutionClick(false)
         // Reset the class of buttons
         const options = document.getElementById(j);
         //   console.log('Optios',options)
@@ -207,6 +215,12 @@ export default function Quiz() {
         const answer = document.getElementById('showingSolution')
         answer.innerHTML = ''
 
+        const mess = document.getElementById('message')
+        mess.innerHTML = ''
+
+        // const corrOpt = document.getElementById('showungCorrectOption')
+        // corrOpt.innerHTML = ''
+
     }
 
     function ShowingCorrectOption() {
@@ -220,6 +234,7 @@ export default function Quiz() {
     function headerButRedirect(j) {
 
         setbtnDisable(false)
+        setAfterWrongAnswerShow(false)
 
         setshowSolutionClick(false)
 
@@ -233,9 +248,13 @@ export default function Quiz() {
         answer.innerHTML = ''
 
         handlingAnswerState()
+
     }
 
+    function optionChooseFun(X) {
+        setOptionChoosen(X)
 
+    }
 
     return (
         <div className='Quiz'>
@@ -248,54 +267,12 @@ export default function Quiz() {
 
             {/* /*------------------------------------Question portion-----------------------------------------*/}
 
-            <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-
-                <div className="carousel-inner">
-                    {
-                        console.log('QusetionBank', QusetionBank)
-                    }
-                    {QusetionBank.map(
-
-                        (Question, index) => {
-                            return (
-
-                                <div key={index} className={`carousel-item ${index === CurrQuestion ? "active" : ''} `}>
-
-                                    <h3 dangerouslySetInnerHTML={{ __html: Question.question_text }} />
-
-                                    <div id={`Options-${index}`}>
-                                        {
-                                            (Question.options).map(
-                                                (option, index) => {
-                                                    return <div key={index} className='option'>
-                                                        <button
-
-                                                            // onClick={() => ForButtonHandle([Alpoption[index], option.option_id]) }
-                                                            onClick={() => setOptionChoosen([Alpoption[index], option.option_id])}
-
-                                                            className={`btn ${((Question.is_solved && Question.is_solved.optionChoosen[1] == option.option_id) || (optionChoosen[1] == option.option_id)) ? "btn-primary" : "btn-outline-primary"} option`}
-                                                            dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
-                                                            disabled={btnDisable}
-                                                        />
-                                                    </div>
-                                                }
-                                            )
-                                        }
-                                    </div>
-                                </div>
-                            )
-                        }
-                    )
-                    }
-                </div>
-
-            </div>
-
+            <QuestionPortion Alpoption={Alpoption} optionChooseFun={optionChooseFun} optionChoosen={optionChoosen} btnDisable={btnDisable} />
 
 
             {/* /*------------------------------------submit Portion-----------------------------------------*/}
             {
-                (!submitisClick && (!QusetionBank[CurrQuestion]?.is_solved?.submitisClick))
+                (!submitisClick)
 
                     ?
 
@@ -309,41 +286,24 @@ export default function Quiz() {
                         {OptionIsRight == true &&
 
                             <div className='AfterSubmit'>
-                                <div className='text-success'> {messages.right} </div>
+                                <div id='message' className='text-success'> {messages.right} </div>
                                 {!showSolutionClick && <button className='container text-center btn btn-outline-primary ShowSolution' onClick={ShowingFullTextSoluiton}>Show Solution</button>}
-                            </div>}
+                            </div>
+                            }
 
 
                         {OptionIsRight == false &&
-                            <div>
-                                <div className='text-danger'> {messages.wrong} </div>
+                           
+                           <ChooseOptionIsNotRight messages={messages} AfterWrongAnswerShow={AfterWrongAnswerShow} correctOptionId={correctOptionId} showSolutionClick={showSolutionClick} IwillTryAgain={IwillTryAgain} CurrQuestion={CurrQuestion} ShowingCorrectOption={ShowingCorrectOption} ShowingFullTextSoluiton={ShowingFullTextSoluiton} />
 
-                                { AfterWrongAnswerShow ==true && <div id='showungCorrectOption'> Correct Answer is <b>Option {correctOptionId[0]}</b></div> }
-
-                                 {!showSolutionClick &&  <button className='btn btn-primary IwillTryAgain' onClick={() => IwillTryAgain(`Options-${CurrQuestion}`)} > I will Try Again </button> }
-
-                                {
-                                    AfterWrongAnswerShow == false &&
-                                      !showSolutionClick &&  <button className='btn btn-primary ShowingCorrectOption' onClick={ShowingCorrectOption} > Show Correct Answer </button> }
-                                
-
-                                {
-                                    AfterWrongAnswerShow == true &&
-                                    <div>
-                                        {!showSolutionClick && <button className='btn btn-primary ShowingCorrectOption' onClick={ShowingFullTextSoluiton} > Show Solution </button>}
-                                    </div>
-                                }
-                            </div>
                         }
 
 
 
                     </div>
             }
-   
-   <div id="showingSolution"> </div>
-            
 
+            <div id="showingSolution"> </div>
 
 
             {/* /*------------------------------------------ Next and Previous Buttons -------------------------------*/}
