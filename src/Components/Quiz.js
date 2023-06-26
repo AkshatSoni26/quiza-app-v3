@@ -7,22 +7,20 @@ import NextAndPRev from './NextAndPrev/NextAndPRev';
 // import SubmitButton from './SubmitButton/SubmitButton';
 
 
-
 export default function Quiz() {
     const { QusetionBank, score, setScore, setQusetionBank, CurrQuestion,
-        optionChoosen,correctOptionId,selectedOption, submitisClick, setCurrQuestion,setOptionChoosen,setcorrectOptionId, setSelectedOption, setSubmitisClick
-       } = useContext(Helper)
+        optionChoosen, correctOptionId, selectedOption, submitisClick, setCurrQuestion, setOptionChoosen, setcorrectOptionId, setSelectedOption, setSubmitisClick
+    } = useContext(Helper)
 
-       const [OptionIsRight, setOptionIsRight] = useState(false) // option is right or not
+    const [OptionIsRight, setOptionIsRight] = useState(false) // option is right or not
 
-       const [AfterWrongAnswerShow, setAfterWrongAnswerShow] = useState(false) // After Wrong answer want to show
+    const [AfterWrongAnswerShow, setAfterWrongAnswerShow] = useState(false) // After Wrong answer want to show
 
-    //    const [allbButtonisClick,setallbButtonisClick] = useState(false)
+    const [showSolutionClick, setshowSolutionClick] = useState(false) // After show soltuion is click
 
-    const [message, setMessage ] = useState(false)
+    const [btnDisable, setbtnDisable] = useState(false)
 
-    
-
+    const [message, setMessage] = useState(false)
 
     const Alpoption = ['A', 'B', 'C', 'D']
 
@@ -34,39 +32,41 @@ export default function Quiz() {
 
     useEffect(
         () => {
-if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
-    
-    const data = QusetionBank[CurrQuestion].is_solved
+            if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
 
-          setcorrectOptionId(data.correctOptionId)
-          setOptionIsRight(data.OptionIsRight)
-          setSubmitisClick(data.submitisClick)
-          setOptionChoosen(data.optionChoosen)
-        //   setMessage(data.message)
-          console.log("under the useEffect")
-}
+                const data = QusetionBank[CurrQuestion].is_solved
+
+                setcorrectOptionId(data.correctOptionId)
+                setOptionIsRight(data.OptionIsRight)
+                setSubmitisClick(data.submitisClick)
+                setOptionChoosen(data.optionChoosen)
+                setbtnDisable(data.btnDisable)
+                setMessage(data.message)
+                //   setMessage(data.message)
+                console.log("under the useEffect")
+            }
 
         }, [CurrQuestion, setOptionChoosen]
     )
 
-  function handlingAnswerState() {
+    function handlingAnswerState() {
 
-      let temp = [...QusetionBank]
-      temp[CurrQuestion].is_solved = {
-          optionChoosen:optionChoosen,
-          correctOptionId:correctOptionId,
-          OptionIsRight: OptionIsRight,
-          submitisClick: submitisClick,
-        //   message : message
-          
-      }
-      console.log('temp[CurrQuestion]',temp)
-      setQusetionBank(temp)
+        let temp = [...QusetionBank]
+        temp[CurrQuestion].is_solved = {
+            optionChoosen: optionChoosen,
+            correctOptionId: correctOptionId,
+            OptionIsRight: OptionIsRight,
+            submitisClick: submitisClick,
+            btnDisable: btnDisable,
+            message: message
+            //   message : message
 
-    //   console.log("answer",answer)
-  }
+        }
+        console.log('temp[CurrQuestion]', temp)
+        setQusetionBank(temp)
 
-
+        //   console.log("answer",answer)
+    }
 
 
     //set the correctoptionId
@@ -95,16 +95,19 @@ if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
         }
         else {
 
+            setbtnDisable(true)  // disabling the buttons
+            setMessage(true)
+
             if (correctOptionId[1] == optionChoosen[1]) {
                 setScore(score + 1)
                 setOptionIsRight(true)
 
-                console.log( "setOptionIsRight(true)")
+                console.log("setOptionIsRight(true)")
 
-                
             }
             else {
                 setOptionIsRight(false)
+
             }
 
             setSubmitisClick(true)
@@ -112,7 +115,7 @@ if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
         }
         handlingAnswerState()
 
-  
+
     }
 
     console.log('OptionIsRight', OptionIsRight)
@@ -125,17 +128,14 @@ if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
         console.log("optionChoosen", optionChoosen)
 
         // QuestionChecker()
+        setbtnDisable(false)
+
 
         if (i == '+') {
 
             handlingAnswerState()
+            setshowSolutionClick(false)
 
-            // setQusetionBank(
-            //     QusetionBank[i-1] = {
-            //         ...QusetionBank[i-1],
-            //         is_answerd: optionChoosen
-            //     }
-            // )
             // submitisClick
             setSubmitisClick(false)
             setCurrQuestion(CurrQuestion + 1)
@@ -148,13 +148,16 @@ if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
         }
         else if (i == '-') {
 
+            setshowSolutionClick(false)
+
+
             handlingAnswerState()
 
             setSubmitisClick(false)
             setcorrectOptionId([])
             setOptionChoosen([])
-            
-            
+
+
             const answer = document.getElementById('showingSolution')
             answer.innerHTML = ''
             setCurrQuestion(CurrQuestion - 1)
@@ -163,6 +166,8 @@ if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
     }
 
     function ShowingFullTextSoluiton() {
+
+        setshowSolutionClick(true)
         const answer = document.getElementById('showingSolution')
         answer.innerHTML = `<h3> Solution :- </h3>${QusetionBank[CurrQuestion].solution}`
 
@@ -171,58 +176,65 @@ if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
     // console.log("QuestionChecker[CurrQuestion].solution",QusetionBank[CurrQuestion].solution)
 
     function IwillTryAgain(j) {
+
+        setbtnDisable(false)
+        setMessage(false)
+
+
         setOptionChoosen([])
         setSubmitisClick(false)
 
-          // Reset the class of buttons
-  const options = document.getElementById(j);
-//   console.log('Optios',options)
+        // Reset the class of buttons
+        const options = document.getElementById(j);
+        //   console.log('Optios',options)
 
-  // Get the button element
-var button = options.querySelector('.btn-primary');
+        // Get the button element
+        var button = options.querySelector('.btn-primary');
 
-if (button == null) {
-    setSubmitisClick(false)
-}
-else{
-    // Remove the "btn-primary" class
-    button.classList.remove('btn-primary');
-    
-    // Add the "btn-outline-primary" class
-    button.classList.add('btn-outline-primary');
+        if (button == null) {
+            setSubmitisClick(false)
+        }
+        else {
+            // Remove the "btn-primary" class
+            button.classList.remove('btn-primary');
 
-}
-console.log('button',button)
+            // Add the "btn-outline-primary" class
+            button.classList.add('btn-outline-primary');
 
-//   options.classList.replace("btn-primary", "btn-outline-primary");
+        }
+        console.log('button', button)
 
-  //   for (let i = 0; i < options.length; i++) {
-//     options[i].classList.remove("btn-primary");
-//     options[i].classList.add("btn-outline-primary");
-//   }
-  
         const answer = document.getElementById('showingSolution')
         answer.innerHTML = ''
+
     }
 
     function ShowingCorrectOption() {
-        const answer = document.getElementById('showingSolution')
-        answer.innerHTML = `<h3> Solution :- </h3>Correct Option is ${correctOptionId[0]}`
+
+        // const answer = document.getElementById('showungCorrectOption')
+        // answer.innerHTML = `Correct Answer is <b>Option ${correctOptionId[0]}</b>`
         setAfterWrongAnswerShow(true)
 
     }
 
     function headerButRedirect(j) {
 
+        setbtnDisable(false)
+
+        setshowSolutionClick(false)
+
         setCurrQuestion(j)
-     
+
         setSubmitisClick(false)
         setcorrectOptionId([])
-        setOptionChoosen([])   
-        
+        setOptionChoosen([])
+
         const answer = document.getElementById('showingSolution')
         answer.innerHTML = ''
+
+        handlingAnswerState()
     }
+
 
 
     return (
@@ -257,9 +269,15 @@ console.log('button',button)
                                                 (option, index) => {
                                                     return <div key={index} className='option'>
                                                         <button
+
+                                                            // onClick={() => ForButtonHandle([Alpoption[index], option.option_id]) }
                                                             onClick={() => setOptionChoosen([Alpoption[index], option.option_id])}
-                                                            className={`btn ${( (Question.is_solved && Question.is_solved.optionChoosen[1] == option.option_id) || (optionChoosen[1] == option.option_id) ) ? "btn-primary" : "btn-outline-primary"} option`}
-                                                            dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }} /> </div>
+
+                                                            className={`btn ${((Question.is_solved && Question.is_solved.optionChoosen[1] == option.option_id) || (optionChoosen[1] == option.option_id)) ? "btn-primary" : "btn-outline-primary"} option`}
+                                                            dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
+                                                            disabled={btnDisable}
+                                                        />
+                                                    </div>
                                                 }
                                             )
                                         }
@@ -276,16 +294,13 @@ console.log('button',button)
 
 
             {/* /*------------------------------------submit Portion-----------------------------------------*/}
-{/* <SubmitButton submitisClick={submitisClick} QuestionChecker={QuestionChecker} OptionIsRight={OptionIsRight} ShowingFullTextSoluiton={ShowingFullTextSoluiton} IwillTryAgain={IwillTryAgain} ShowingCorrectOption={ShowingCorrectOption} /> */}
-     
-     
             {
-                (   !submitisClick && (!QusetionBank[CurrQuestion]?.is_solved?.submitisClick) ) 
-                
-                ?
-                
-                <div className='submit'>
-                {/* {console.log("QusetionBank[CurrQuestion].is_solved.submitisClick",QusetionBank[CurrQuestion].is_solved.submitisClick)} */}
+                (!submitisClick && (!QusetionBank[CurrQuestion]?.is_solved?.submitisClick))
+
+                    ?
+
+                    <div className='submit'>
+                        {/* {console.log("QusetionBank[CurrQuestion].is_solved.submitisClick",QusetionBank[CurrQuestion].is_solved.submitisClick)} */}
                         <button className='btn btn-primary' onClick={QuestionChecker}>Submit</button>
                     </div>
                     :
@@ -295,35 +310,44 @@ console.log('button',button)
 
                             <div className='AfterSubmit'>
                                 <div className='text-success'> {messages.right} </div>
-                                <button className='container text-center btn btn-outline-primary ShowSolution' onClick={ShowingFullTextSoluiton}>Show Solution</button>
+                                {!showSolutionClick && <button className='container text-center btn btn-outline-primary ShowSolution' onClick={ShowingFullTextSoluiton}>Show Solution</button>}
                             </div>}
+
+
                         {OptionIsRight == false &&
                             <div>
+                                <div className='text-danger'> {messages.wrong} </div>
 
-<div className='text-danger'> {messages.wrong} </div>
-                                <button className='btn btn-primary IwillTryAgain' onClick={() => IwillTryAgain(`Options-${CurrQuestion}`)} > I will Try Again </button>
+                                { AfterWrongAnswerShow ==true && <div id='showungCorrectOption'> Correct Answer is <b>Option {correctOptionId[0]}</b></div> }
+
+                                 {!showSolutionClick &&  <button className='btn btn-primary IwillTryAgain' onClick={() => IwillTryAgain(`Options-${CurrQuestion}`)} > I will Try Again </button> }
+
                                 {
                                     AfterWrongAnswerShow == false &&
-                                    <button className='btn btn-primary ShowingCorrectOption' onClick={ShowingCorrectOption} > Show Correct Answer </button>
+                                      !showSolutionClick &&  <button className='btn btn-primary ShowingCorrectOption' onClick={ShowingCorrectOption} > Show Correct Answer </button> }
+                                
 
+                                {
+                                    AfterWrongAnswerShow == true &&
+                                    <div>
+                                        {!showSolutionClick && <button className='btn btn-primary ShowingCorrectOption' onClick={ShowingFullTextSoluiton} > Show Solution </button>}
+                                    </div>
                                 }
-                        {
-                            AfterWrongAnswerShow == true &&
-                            <div>
-                                <button className='btn btn-primary ShowingCorrectOption' onClick={ShowingFullTextSoluiton} > Show Solution </button>
                             </div>
                         }
-                            </div>}
 
 
 
                     </div>
             }
-<div id="showingSolution"></div>
+   
+   <div id="showingSolution"> </div>
+            
+
 
 
             {/* /*------------------------------------------ Next and Previous Buttons -------------------------------*/}
- 
+
 
             <NextAndPRev CurrQuestion={CurrQuestion} pageHandler={pageHandler} />
 

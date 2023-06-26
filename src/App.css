@@ -10,9 +10,10 @@
   width: auto;
 }
 
-.option :hover {
+/* .option :hover {
   background-color: rgb(0, 0, 0);
-}
+} */
+
 .header {
   margin-top: 5%;
 }
