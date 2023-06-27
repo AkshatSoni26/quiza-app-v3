@@ -8,7 +8,7 @@ const MCOptions = ({  Alpoption, btnDisable, optionChooseFun,  options}) => {
 
   useEffect(
     () => {
-      console.log('multiple under th MCoption', optionChoosen)
+      // console.log('multiple under th MCoption', optionChoosen)
     },[]
   )
 
@@ -16,16 +16,16 @@ const MCOptions = ({  Alpoption, btnDisable, optionChooseFun,  options}) => {
   function multipleFun(i) {
 
     if (!optionChoosen.includes(i)) {
-      // console.log('multiple under multipleFun', optionChoosen)
+      // // console.log('multiple under multipleFun', optionChoosen)
 
       // Add the element to the array if it's not already present
-      // console.log(' multipleFun Add the element to the array if its not already present', [...optionChoosen, i])
+      // // console.log(' multipleFun Add the element to the array if its not already present', [...optionChoosen, i])
       setOptionChoosen([...optionChoosen, i]);
     } else {
       // Remove the element from the array if it's already present
       const updatedOptions = optionChoosen.filter((option) => option !== i);
       setOptionChoosen(updatedOptions);
-      // console.log('multipleFun Remove the element from the array if its already present', updatedOptions)
+      // // console.log('multipleFun Remove the element from the array if its already present', updatedOptions)
     }
   }
 

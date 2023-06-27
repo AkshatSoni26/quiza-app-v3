@@ -22,7 +22,7 @@ export default function ChooseOptionIsNotRight({  setshowSolutionClick, AfterWro
 
         // Reset the class of buttons
         const options = document.getElementById(j);
-        //   console.log('Optios',options)
+        //   // console.log('Optios',options)
 
         if (QuestionType == "numerical") {
             setNumAnswer("");
@@ -41,7 +41,7 @@ export default function ChooseOptionIsNotRight({  setshowSolutionClick, AfterWro
             }
         }
 
-        console.log("button", button);
+        // // console.log("button", button);
 
         const answer = document.getElementById("showingSolution");
         answer.innerHTML = "";

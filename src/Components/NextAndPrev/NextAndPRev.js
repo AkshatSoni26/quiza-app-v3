@@ -9,7 +9,7 @@ export default function NextAndPRev({ setshowSolutionClick,setAfterWrongAnswerSh
     function pageHandler(i) {
       setQuestionType();
 
-      console.log("optionChoosen", optionChoosen);
+      // console.log("optionChoosen", optionChoosen);
 
       // QuestionChecker()
       setbtnDisable(false);

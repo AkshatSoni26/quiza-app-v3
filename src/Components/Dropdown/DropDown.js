@@ -16,7 +16,7 @@ export default function DropDown() {
         () => {
             axios.get(API).then(
                 (response) => {
-                    console.log(response.data.data.value)
+                    // console.log(response.data.data.value)
                     setData(response.data.data.value)
                 }
             )

@@ -45,9 +45,10 @@ export default function Quiz() {
     const [btnDisable, setbtnDisable] = useState(false);
 
     const [message, setMessage] = useState(false);
+    
 
 
-    console.log("optionChoosen", optionChoosen);
+    // // console.log("optionChoosen", optionChoosen);
 
     useEffect(() => {
         if (QusetionBank[CurrQuestion] && QusetionBank[CurrQuestion].is_solved) {
@@ -61,7 +62,7 @@ export default function Quiz() {
             setMessage(data.message);
             setNumAnswer(data.NumAnswer);
             //   setMessage(data.message)
-            console.log("under the useEffect");
+            // // console.log("under the useEffect");
         }
     }, [CurrQuestion]);
 
@@ -76,7 +77,7 @@ export default function Quiz() {
             message: message,
             NumAnswer: NumAnswer,
         };
-        console.log("temp[CurrQuestion]", temp);
+        // // console.log("temp[CurrQuestion]", temp);
         setQusetionBank(temp);
     }
 
@@ -96,21 +97,21 @@ export default function Quiz() {
 
             for (let i = 0; i < QusetionBank[CurrQuestion].options.length; i++) {
                 if (Options[i]?.is_solution == true) {
-                    console.log("before", tempAnswer);
+                    // // console.log("before", tempAnswer);
                     tempAnswer = [...tempAnswer, Alpoption[i]];
                     // setcorrectOptionId(temp)
-                    console.log("after", tempAnswer);
+                    // // console.log("after", tempAnswer);
                 }
-                console.log("before tempAnswer", correctOptionId);
+                // // console.log("before tempAnswer", correctOptionId);
             }
             setcorrectOptionId(tempAnswer);
-            console.log("after tempAnswer", correctOptionId);
+            // // console.log("after tempAnswer", correctOptionId);
         }
     }, [CurrQuestion]);
 
 
-    console.log(" correctOptionId", correctOptionId);
-    console.log(" optionChoosen", optionChoosen);
+    // // console.log(" correctOptionId", correctOptionId);
+    // // console.log(" optionChoosen", optionChoosen);
 
 
     function QuestionChecker() {
@@ -121,12 +122,12 @@ export default function Quiz() {
             if (NumAnswer == undefined || NumAnswer.length == 0) {
                 alert("First type the answer.");
             } else {
-                console.log("under the Numerical poriton.");
+                // // console.log("under the Numerical poriton.");
 
-                // console.log('type of range',typeof  rangeAns[0], 'type of answer',rangeAns[0]<=Number(NumAnswer)<=rangeAns[1] )
-                console.log("rangeAns", correctOptionId[0]);
+                // // console.log('type of range',typeof  rangeAns[0], 'type of answer',rangeAns[0]<=Number(NumAnswer)<=rangeAns[1] )
+                // // console.log("rangeAns", correctOptionId[0]);
                 if (correctOptionId[0] == Number(NumAnswer)) {
-                    console.log("under the range Numberical if state");
+                    // // console.log("under the range Numberical if state");
                 } else {
                     answers = false;
                 }
@@ -135,7 +136,7 @@ export default function Quiz() {
             }
         } else {
             if (optionChoosen.length == 0) {
-                alert("now any option is choose.");
+                alert("no any option is choose.");
             }
             else if (optionChoosen.length !== correctOptionId.length) {
                 answers = false;
@@ -147,7 +148,7 @@ export default function Quiz() {
 
                 for (let i = 0; i < correctOptionId.length; i++) {
                     if (optionChoosen.includes(correctOptionId[i])) {
-                        console.log("setOptionIsRight(true)");
+                        // // console.log("setOptionIsRight(true)");
                     } else {
                         answers = false;
                         break;
@@ -160,15 +161,19 @@ export default function Quiz() {
         if (answers == true) {
             setScore(score + 1);
             setOptionIsRight(true);
+      
+
         } else {
             setOptionIsRight(false);
+
         }
 
         handlingAnswerState();
+
     }
 
 
-    console.log("OptionIsRight", OptionIsRight);
+    // // console.log("OptionIsRight", OptionIsRight);
 
     function ShowingFullTextSoluiton() {
         setshowSolutionClick(true);

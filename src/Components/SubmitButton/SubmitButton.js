@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function SubmitButton({ submitisClick, QuestionChecker, OptionIsRight, ShowingFullTextSoluiton, IwillTryAgain, ShowingCorrectOption }) {
-
+console.log('222222222222222222222222222222222222222222222222222')
     return (
         (!submitisClick)
             ?

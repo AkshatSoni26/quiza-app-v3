@@ -9,9 +9,11 @@ import { IDGiver } from './Components/APIHandler';
 
 
 export const Api = `https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=${IDGiver()}`
-// console.log("API",Api)
+// // console.log("API",Api)
 
 function App() {
+
+  console.log("1111111113433333333333333333333333333")
 
   const [QusetionBank, setQusetionBank] = useState();
 
@@ -33,8 +35,8 @@ function App() {
 
   const [rangeAns, setRange] = useState([])
 
-  const Alpoption = ["A", "B", "C", "D"];
 
+  const Alpoption = ["A", "B", "C", "D"];
   
   useEffect(
     () => {
@@ -44,7 +46,7 @@ function App() {
 
           setQusetionBank(Response.data.data)
 
-          console.log(Response.data.data)
+          // // console.log(Response.data.data)
         }
       ).catch(
         (error) => {

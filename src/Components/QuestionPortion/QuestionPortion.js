@@ -6,6 +6,8 @@ import Numerical from '../Options/Numerical'
 
 export default function QuestionPortion({ btnDisable }) {
 
+    console.log('44444444444444444444444444444444444444')
+
     const { CurrQuestion, QusetionBank, setOptionChoosen, Alpoption, optionChoosen } = useContext(Helper)
 
     
@@ -18,7 +20,7 @@ export default function QuestionPortion({ btnDisable }) {
 
             <div className="carousel-inner">
                 {
-                    console.log('QusetionBank', QusetionBank)
+                    // // console.log('QusetionBank', QusetionBank)
                 }
                 {QusetionBank.map(
 
