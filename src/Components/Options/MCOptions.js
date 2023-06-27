@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Helper } from '../../Helper/Helper'
 import QuestionPortion from '../QuestionPortion/QuestionPortion'
 
@@ -6,7 +6,12 @@ const MCOptions = ({  Alpoption, btnDisable, optionChooseFun,  options}) => {
 
   const { optionChoosen, setOptionChoosen } = useContext(Helper)
 
-  console.log('multiple under th MCoption', optionChoosen)
+  useEffect(
+    () => {
+      console.log('multiple under th MCoption', optionChoosen)
+    },[]
+  )
+
 
   function multipleFun(i) {
 
@@ -44,15 +49,5 @@ const MCOptions = ({  Alpoption, btnDisable, optionChooseFun,  options}) => {
   )
 }
 
-
-{/* <button
-
-onClick={() => optionChooseFun(Alpoption[index]) }
-
-className={`btn ${((optionChoosen == Alpoption[index])) ? "btn-primary" : "btn-outline-primary"} option`}
-dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
-disabled={btnDisable}
-
-/> */}
 
 export default MCOptions

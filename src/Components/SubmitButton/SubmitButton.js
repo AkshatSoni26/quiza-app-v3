@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function SubmitButton({submitisClick, QuestionChecker, OptionIsRight, ShowingFullTextSoluiton, IwillTryAgain,ShowingCorrectOption}) {
-  return (
-    
+export default function SubmitButton({ submitisClick, QuestionChecker, OptionIsRight, ShowingFullTextSoluiton, IwillTryAgain, ShowingCorrectOption }) {
+
+    return (
         (!submitisClick)
             ?
 
@@ -20,10 +20,10 @@ export default function SubmitButton({submitisClick, QuestionChecker, OptionIsRi
                 {OptionIsRight == false &&
                     <div>
                         <button className='btn btn-primary IwillTryAgain' onClick={() => IwillTryAgain()} > I will Try Again </button>
-                        <button className='btn btn-primary ShowingCorrectOption' onClick={() =>ShowingCorrectOption()} > Show Solution </button>
+                        <button className='btn btn-primary ShowingCorrectOption' onClick={() => ShowingCorrectOption()} > Show Solution </button>
                     </div>}
 
             </div>
-    
-  )
+
+    )
 }

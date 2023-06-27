@@ -2,9 +2,44 @@ import React, { useContext } from 'react'
 import { Helper } from '../../Helper/Helper'
 import '../../App.css'
 
-export default function NextAndPRev({CurrQuestion, pageHandler}) {
+export default function NextAndPRev({ setshowSolutionClick,setAfterWrongAnswerShow, handlingAnswerState, setbtnDisable}) {
 
-    const {QusetionBank, setGamestate} = useContext(Helper)
+    const {QusetionBank, setSubmitisClick,setOptionChoosen, optionChoosen, setcorrectOptionId, setCurrQuestion, setGamestate, CurrQuestion, setQuestionType} = useContext(Helper)
+
+    function pageHandler(i) {
+      setQuestionType();
+
+      console.log("optionChoosen", optionChoosen);
+
+      // QuestionChecker()
+      setbtnDisable(false);
+
+      if (i == "+") {
+          handlingAnswerState();
+          setshowSolutionClick(false);
+          // submitisClick
+          setSubmitisClick(false);
+          setCurrQuestion(CurrQuestion + 1);
+
+          setcorrectOptionId([]);
+          setOptionChoosen([]);
+          setAfterWrongAnswerShow(false);
+
+          const answer = document.getElementById("showingSolution");
+          answer.innerHTML = "";
+      } else if (i == "-") {
+          setshowSolutionClick(false);
+          handlingAnswerState();
+          setSubmitisClick(false);
+          setcorrectOptionId([]);
+          setOptionChoosen([]);
+          setAfterWrongAnswerShow(false);
+
+          const answer = document.getElementById("showingSolution");
+          answer.innerHTML = "";
+          setCurrQuestion(CurrQuestion - 1);
+      }
+  }
 
   return (
     

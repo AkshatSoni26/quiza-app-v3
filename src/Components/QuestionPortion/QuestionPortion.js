@@ -4,12 +4,14 @@ import { Helper } from '../../Helper/Helper'
 import MCOptions from '../Options/MCOptions'
 import Numerical from '../Options/Numerical'
 
-export default function QuestionPortion({ Alpoption, optionChooseFun, optionChoosen, btnDisable }) {
+export default function QuestionPortion({ btnDisable }) {
 
-    const { CurrQuestion, QusetionBank } = useContext(Helper)
+    const { CurrQuestion, QusetionBank, setOptionChoosen, Alpoption, optionChoosen } = useContext(Helper)
 
-    // const [multiple, setMultiple ] = useState([])
-
+    
+    function optionChooseFun(X) {
+        setOptionChoosen(X);
+    }
 
     return (
         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">

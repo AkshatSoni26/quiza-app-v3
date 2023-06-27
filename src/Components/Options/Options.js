@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function Options({ options, Alpoption, option, optionChoosen, btnDisable, optionChooseFun }) {
+export default function Options({ options, Alpoption, optionChoosen, btnDisable, optionChooseFun }) {
+
   return (
     (options).map(
       (option, index) => {

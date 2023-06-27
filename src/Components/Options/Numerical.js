@@ -11,14 +11,3 @@ export default function Numerical() {
     <input name="myInput" value={NumAnswer} onChange={(e) => setNumAnswer(e.target.value)}/>
   )
 }
-
-
-{/* <button
-
-onClick={() => optionChooseFun(Alpoption[index]) }
-
-className={`btn ${((optionChoosen == Alpoption[index])) ? "btn-primary" : "btn-outline-primary"} option`}
-dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
-disabled={btnDisable}
-
-/> */}

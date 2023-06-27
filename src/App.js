@@ -1,15 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import Quiz from './Components/Quiz';
 import { useEffect, useState } from 'react';
 import EndScreen from './Components/EndScreen';
 import axios from 'axios';
 import { Helper } from './Helper/Helper';
-// import Helper from './Helper/Helper';
+import { IDGiver } from './Components/APIHandler';
 
 
-export const Api = "https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=48"
 
+export const Api = `https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=${IDGiver()}`
+// console.log("API",Api)
 
 function App() {
 
@@ -32,6 +32,8 @@ function App() {
   const [QuestionType, setQuestionType] = useState()
 
   const [rangeAns, setRange] = useState([])
+
+  const Alpoption = ["A", "B", "C", "D"];
 
   
   useEffect(
@@ -59,7 +61,7 @@ function App() {
       <h2>Loading...</h2>
       :
       
-      <Helper.Provider value={{ rangeAns, setRange,QuestionType, setQuestionType, NumAnswer, setNumAnswer, score, setScore, setGamestate, QusetionBank, setQusetionBank, CurrQuestion,   
+      <Helper.Provider value={{ Alpoption, rangeAns, setRange,QuestionType, setQuestionType, NumAnswer, setNumAnswer, score, setScore, setGamestate, QusetionBank, setQusetionBank, CurrQuestion,   
   optionChoosen,correctOptionId,selectedOption, submitisClick, setCurrQuestion,setOptionChoosen,setcorrectOptionId, setSelectedOption, setSubmitisClick
 
        }} >
