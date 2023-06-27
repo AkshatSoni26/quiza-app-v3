@@ -8,26 +8,30 @@ import { Helper } from './Helper/Helper';
 // import Helper from './Helper/Helper';
 
 
-export const Api = "https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=46"
+export const Api = "https://api.esaral.com/v2/quizes/get-quiz-question-details?quiz_id=48"
 
 
 function App() {
 
   const [QusetionBank, setQusetionBank] = useState();
 
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(11);
 
   const [gamestate, setGamestate] = useState('quiz-screen')
 
   const [CurrQuestion, setCurrQuestion] = useState(0)  // for setting the Question
   const [optionChoosen, setOptionChoosen] = useState([]) // for OPtion choose
   const [correctOptionId, setcorrectOptionId] = useState([]) // for correct option id
-  
 
+  const [NumAnswer, setNumAnswer] = useState()
 
   const [selectedOption, setSelectedOption] = useState()
 
   const [submitisClick, setSubmitisClick] = useState(false) // submit button is click
+
+  const [QuestionType, setQuestionType] = useState()
+
+  const [rangeAns, setRange] = useState([])
 
   
   useEffect(
@@ -55,7 +59,7 @@ function App() {
       <h2>Loading...</h2>
       :
       
-      <Helper.Provider value={{ score, setScore, setGamestate, QusetionBank, setQusetionBank, CurrQuestion,   
+      <Helper.Provider value={{ rangeAns, setRange,QuestionType, setQuestionType, NumAnswer, setNumAnswer, score, setScore, setGamestate, QusetionBank, setQusetionBank, CurrQuestion,   
   optionChoosen,correctOptionId,selectedOption, submitisClick, setCurrQuestion,setOptionChoosen,setcorrectOptionId, setSelectedOption, setSubmitisClick
 
        }} >

@@ -1,15 +1,20 @@
 import React from 'react'
 
-export default function Options( { index, Alpoption, option, optionChoosen, btnDisable, optionChooseFun } ) {
+export default function Options({ options, Alpoption, option, optionChoosen, btnDisable, optionChooseFun }) {
   return (
-    <button
+    (options).map(
+      (option, index) => {
+        return <div key={index} className='option'>
+          <button
 
-    onClick={() => optionChooseFun([Alpoption[index], option.option_id]) }
+            onClick={() => optionChooseFun(Alpoption[index])}
 
-    className={`btn ${((optionChoosen[1] == option.option_id)) ? "btn-primary" : "btn-outline-primary"} option`}
-    dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
-    disabled={btnDisable}
+            className={`btn ${((optionChoosen == Alpoption[index])) ? "btn-primary" : "btn-outline-primary"} option`}
+            dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
+            disabled={btnDisable}/>
+    </div>
+      }
+    )
     
-/>
   )
 }

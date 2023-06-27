@@ -2,40 +2,57 @@ import React, { useContext, useState } from 'react'
 import { Helper } from '../../Helper/Helper'
 import QuestionPortion from '../QuestionPortion/QuestionPortion'
 
-const MCOptions = ({ index, Alpoption, option, btnDisable, optionChooseFun }) => {
+const MCOptions = ({  Alpoption, btnDisable, optionChooseFun,  options}) => {
 
-    const { QuestionBank, optionChoosen, setOptionChoosen, CurrQuestion, correctOptionId } = useContext(Helper)
+  const { optionChoosen, setOptionChoosen } = useContext(Helper)
 
-    const [multiple, setMultiple ] = useState([])
+  console.log('multiple under th MCoption', optionChoosen)
 
-    function multipleFun(i,index) {
-        if (!multiple?.includes(i)){
-        const updatedOptions = [...multiple];
-        updatedOptions[index] = i
-        setMultiple(updatedOptions)
-        console.log('under if condition',correctOptionId)
-                console.log('i',i) 
-            }
-        else {
-            const updataeOPtions = [...multiple]
-            console.log('updataeOPtions',updataeOPtions)
-            updataeOPtions[index] = undefined
-            setMultiple(updataeOPtions)
-            console.log('under else condition',correctOptionId)
-        }
-         
+  function multipleFun(i) {
+
+    if (!optionChoosen.includes(i)) {
+      // console.log('multiple under multipleFun', optionChoosen)
+
+      // Add the element to the array if it's not already present
+      // console.log(' multipleFun Add the element to the array if its not already present', [...optionChoosen, i])
+      setOptionChoosen([...optionChoosen, i]);
+    } else {
+      // Remove the element from the array if it's already present
+      const updatedOptions = optionChoosen.filter((option) => option !== i);
+      setOptionChoosen(updatedOptions);
+      // console.log('multipleFun Remove the element from the array if its already present', updatedOptions)
     }
+  }
 
 
-    return (
-        <button
+
+  return (
+
+    (options).map(
+      (option, i) => {
+        return <div key={i} className='option'>
+          <button
             // onClick={() => MCoptionChooseFun([Alpoption[index], option.option_id] , index)}
-            onClick={() => multipleFun(option.option_id,index)}
-            className={`btn ${( multiple[index] == (option.option_id) )? "btn-primary" : "btn-outline-primary"} option`}
-            dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
+            onClick={() => multipleFun(Alpoption[i])}
+            className={`btn ${(optionChoosen.includes(Alpoption[i])) ? "btn-primary" : "btn-outline-primary"} option`}
+            dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[i]}.)</span>` + option.option_value }}
             disabled={btnDisable}
-        />
+          />
+        </div>
+      }
     )
+  )
 }
+
+
+{/* <button
+
+onClick={() => optionChooseFun(Alpoption[index]) }
+
+className={`btn ${((optionChoosen == Alpoption[index])) ? "btn-primary" : "btn-outline-primary"} option`}
+dangerouslySetInnerHTML={{ __html: `<span>${Alpoption[index]}.)</span>` + option.option_value }}
+disabled={btnDisable}
+
+/> */}
 
 export default MCOptions
